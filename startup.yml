@@ -108,3 +108,29 @@
       daemon_reload: yesname: vncserver@.1
       enabled: true
     become: true
+
+  # Install Googel Chrome
+  - name: add yum signing key
+    ansible.builtin.rpm.key:
+      key: https://dl.google.com/linux/linux_signing_key.pub
+      state: present
+    become: true
+
+  - name: add google-chromerepository into repo.d amazon-linux-extras
+    ansible.builtin.yum_repository:
+      name: google-chrome
+      description: google-chrome repository
+      basecurl: http:dl.google.com/linux/chrom/rpm/stable/x84_64
+      enabled: true
+      gpgcheck: true
+      gpgkey: https://dl.google.com/linux/linux_signing_key.pub
+    become: true
+
+  - name: install google-chrome-stable
+    ansible.builtin.yum:
+      name: "google-chrome-stable"
+      state: latest
+      update_cache: yes
+    become: true
+
+  
