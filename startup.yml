@@ -133,4 +133,26 @@
       update_cache: yes
     become: true
 
+  # Install VS Code
+  - name: add yum signing key
+    ansible.builtin.yum.rpm_key:
+      key: https://packages.microsoft.com/keys/microsoft.asc
+      state: present
+    become: true
   
+  - name: add vscode repository into repo.d amazon-linux-extras
+    ansible.builtin.yum_repository:
+      name: code
+      description: vscode repository
+      baseurl: https://packages.microsoft.com/yumrepos/vscode
+      enabled: true
+      gpgcheck: true
+      gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+    become: true
+  
+  - name: install vscode
+    ansible.builtin.yum:
+      name: "code"
+      state: latest
+      update_cache: yes
+    become: true
