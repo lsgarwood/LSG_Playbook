@@ -39,7 +39,7 @@
 
     # Install pexpect
     - name: install pexpect module
-        ansible.builtin.pip:
+      ansible.builtin.pip:
         name: pexpect
         version: 3.3
         state: present
