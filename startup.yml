@@ -111,29 +111,29 @@
         enabled: true
       become: true
 
-    # Install Googel Chrome
-    - name: add yum signing key
-      ansible.builtin.rpm_key:
-        key: https://dl.google.com/linux/linux_signing_key.pub
-        state: present
-      become: true
+    # # Install Googel Chrome
+    # - name: add yum signing key
+    #   ansible.builtin.rpm_key:
+    #     key: https://dl.google.com/linux/linux_signing_key.pub
+    #     state: present
+    #   become: true
 
-    - name: add google-chrome repository into repo.d amazon-linux-extras
-      ansible.builtin.yum_repository:
-        name: google-chrome
-        description: google-chrome repository
-        baseurl: https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
-        enabled: true
-        gpgcheck: true
-        gpgkey: https://dl.google.com/linux/linux_signing_key.pub
-      become: true
+    # - name: add google-chrome repository into repo.d amazon-linux-extras
+    #   ansible.builtin.yum_repository:
+    #     name: google-chrome
+    #     description: google-chrome repository
+    #     baseurl: https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+    #     enabled: true
+    #     gpgcheck: true
+    #     gpgkey: https://dl.google.com/linux/linux_signing_key.pub
+    #   become: true
 
-    - name: install google-chrome-stable
-      ansible.builtin.yum:
-        name: "google-chrome-stable"
-        state: latest
-        update_cache: yes
-      become: true
+    # - name: install google-chrome-stable
+    #   ansible.builtin.yum:
+    #     name: "google-chrome-stable"
+    #     state: latest
+    #     update_cache: yes
+    #   become: true
 
     # Install VS Code
     - name: add yum signing key
