@@ -38,3 +38,73 @@
     become: true
 
   # Install pexpect
+  - name: install pexpect module
+  ansible.builtin.pip:
+    name: pexpect
+    version: 3.3
+    state: present
+  become: true
+
+  # Install MATE Desktop environment
+  - name: install MATE
+    shell: "amazon-linux-extras install mate-desktop1.x"
+    become: true
+
+  - name: define MATE as desktop for all users
+    lineinfile:
+      path: "/etc/sysconfig/desktop"
+      line: "PREFERRED=/usr/bin/mate-session"
+      create: yes
+      state: latest
+    become: true
+
+  # Install Tiger VNC
+  - name: install tiger-vnc viewer
+    yum:
+      name: tigervnc-server
+      state: latest
+    become: true
+
+  # Configure VNC specified password
+  - name: configure vnc specified password
+    expect:
+      command: vncpasswd
+      responses:
+        (?i)password: "{{ vnc_password }}"
+        (?i)verify: "{{ vnc_password }}"
+        (?i)\(y/n\): "n"
+
+  # Restrict VNC network access to localhost
+  - name: create tiger-vnc directory
+    ansible.builtin.file:
+      path: /etc/tigervnc
+      state: directory
+    become: true
+
+  - name: create mandatory config file containing localhost option
+    lineinfile: 
+      path: /etc/tigervnc/vncserver-config-mandatory
+      line: localhost
+      create: yes
+    become: true
+
+  # Start VNC server on display number 1
+  - name: create new systemd unit
+    copy:
+      src: /lib/systemd/system/vncserver@.service
+      dest: /etc/systemd/system/vncserver@.service
+    become: true
+
+  - name: replace all occorunces of USER in new unit with {{ user_name }}
+    replace:
+      path: /etc/systemd/system/vncserver@.service
+      regexp: '<USER>'
+      replace: '{{ user_name }}'
+    become: true
+
+  - name: start and enable vnc server
+    systemd:
+      state: restarted
+      daemon_reload: yesname: vncserver@.1
+      enabled: true
+    become: true
