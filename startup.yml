@@ -112,7 +112,7 @@
 
     # Install Googel Chrome
     - name: add yum signing key
-      ansible.builtin.rpm.key:
+      ansible.builtin.rpm_key:
         key: https://dl.google.com/linux/linux_signing_key.pub
         state: present
       become: true
