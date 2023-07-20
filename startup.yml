@@ -1,0 +1,40 @@
+---
+
+- name: start up EC2 - run updates and install packages
+  hosts: localhost
+  connection: local
+  vars:
+    user_name: ec2_user
+  vars_prompt:
+    - name: vnc_password
+      prompt: Set your password for VNC connection
+
+  # Run yum updates
+  tasks:
+    - name: update yum packages
+      yum:
+        name: '*'
+        state: latest
+      become: true
+
+    - name: update yum security packages
+      yum:
+        name: '*'
+        security: yes
+        state: latest
+
+  # Install Docker
+  - name: install docker
+    yum:
+      name: docker
+      state: latest
+    become: true
+
+  # Intsall pip
+  - name: install pip
+    yum:
+      name: python-pip
+      state: latest
+    become: true
+
+  # Install pexpect
