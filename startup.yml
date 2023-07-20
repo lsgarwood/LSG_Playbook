@@ -56,7 +56,7 @@
         path: "/etc/sysconfig/desktop"
         line: "PREFERRED=/usr/bin/mate-session"
         create: yes
-        state: latest
+        state: present
       become: true
 
     # Install Tiger VNC
