@@ -105,7 +105,8 @@
     - name: start and enable vnc server
       systemd:
         state: restarted
-        daemon_reload: yesname: vncserver@.1
+        daemon_reload: yes
+        name: vncserver@.1
         enabled: true
       become: true
 
