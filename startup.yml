@@ -22,6 +22,7 @@
         name: '*'
         security: yes
         state: latest
+      become: true
 
     # Install Docker
     - name: install docker
