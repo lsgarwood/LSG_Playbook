@@ -122,7 +122,7 @@
       ansible.builtin.yum_repository:
         name: google-chrome
         description: google-chrome repository
-        baseurl: http:dl.google.com/linux/chrome/rpm/stable/x84_64
+        baseurl: https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
         enabled: true
         gpgcheck: true
         gpgkey: https://dl.google.com/linux/linux_signing_key.pub
