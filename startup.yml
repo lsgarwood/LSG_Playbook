@@ -49,7 +49,7 @@
     # Install MATE Desktop environment
     - name: install MATE
       yum:
-        name: mate-desktop1.x
+        name: mate-desktop-environment-extras
       become: true
 
     - name: define MATE as desktop for all users
