@@ -48,7 +48,8 @@
 
     # Install MATE Desktop environment
     - name: install MATE
-      shell: "amazon-linux-extras install mate-desktop1.x"
+      yum:
+        name: mate-desktop1.x"
       become: true
 
     - name: define MATE as desktop for all users
